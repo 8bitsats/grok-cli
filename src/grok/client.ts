@@ -1,5 +1,5 @@
-import OpenAI from "openai";
-import type { ChatCompletionMessageParam } from "openai/resources/chat";
+import OpenAI from 'openai';
+import type { ChatCompletionMessageParam } from 'openai/resources/chat';
 
 export type GrokMessage = ChatCompletionMessageParam;
 
@@ -47,13 +47,17 @@ export interface GrokResponse {
 
 export class GrokClient {
   private client: OpenAI;
-  private currentModel: string = "grok-3-latest";
+  private currentModel: string = "x-ai/grok-4";
 
   constructor(apiKey: string, model?: string, baseURL?: string) {
     this.client = new OpenAI({
       apiKey,
-      baseURL: baseURL || process.env.GROK_BASE_URL || "https://api.x.ai/v1",
+      baseURL: baseURL || process.env.OPENROUTER_BASE_URL || "https://openrouter.ai/api/v1",
       timeout: 360000,
+      defaultHeaders: {
+        "HTTP-Referer": process.env.YOUR_SITE_URL || "https://localhost:3000",
+        "X-Title": process.env.YOUR_SITE_NAME || "Grok CLI",
+      },
     });
     if (model) {
       this.currentModel = model;

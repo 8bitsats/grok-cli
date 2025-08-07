@@ -17,7 +17,7 @@ A conversational AI CLI tool powered by Grok with intelligent text editor capabi
 
 ### Prerequisites
 - Node.js 16+ 
-- Grok API key from X.AI
+- OpenRouter API key from [OpenRouter.ai](https://openrouter.ai)
 
 ### Global Installation (Recommended)
 ```bash
@@ -35,19 +35,20 @@ npm link
 
 ## Setup
 
-1. Get your Grok API key from [X.AI](https://x.ai)
+1. Get your OpenRouter API key from [OpenRouter.ai](https://openrouter.ai)
 
 2. Set up your API key (choose one method):
 
 **Method 1: Environment Variable**
 ```bash
-export GROK_API_KEY=your_api_key_here
+export OPENROUTER_API_KEY=your_api_key_here
+export MODEL=x-ai/grok-4
 ```
 
 **Method 2: .env File**
 ```bash
 cp .env.example .env
-# Edit .env and add your API key
+# Edit .env and add your API key and model
 ```
 
 **Method 3: Command Line Flag**
@@ -65,16 +66,16 @@ Create `~/.grok/user-settings.json`:
 
 ### Custom Base URL (Optional)
 
-You can configure a custom Grok API endpoint (choose one method):
+You can configure a custom OpenRouter API endpoint (choose one method):
 
 **Method 1: Environment Variable**
 ```bash
-export GROK_BASE_URL=https://your-custom-endpoint.com/v1
+export OPENROUTER_BASE_URL=https://openrouter.ai/api/v1
 ```
 
 **Method 2: Command Line Flag**
 ```bash
-grok --api-key your_api_key_here --baseurl https://your-custom-endpoint.com/v1
+grok --api-key your_api_key_here --base-url https://openrouter.ai/api/v1
 ```
 
 **Method 3: User Settings File**
@@ -82,7 +83,7 @@ Add to `~/.grok/user-settings.json`:
 ```json
 {
   "apiKey": "your_api_key_here",
-  "baseURL": "https://your-custom-endpoint.com/v1"
+  "baseURL": "https://openrouter.ai/api/v1"
 }
 ```
 

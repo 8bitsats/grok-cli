@@ -1,10 +1,23 @@
-import { GrokClient, GrokMessage, GrokToolCall } from "../grok/client";
-import { GROK_TOOLS } from "../grok/tools";
-import { TextEditorTool, BashTool, TodoTool, ConfirmationTool } from "../tools";
-import { ToolResult } from "../types";
-import { EventEmitter } from "events";
-import { createTokenCounter, TokenCounter } from "../utils/token-counter";
-import { loadCustomInstructions } from "../utils/custom-instructions";
+import { EventEmitter } from 'events';
+
+import {
+  GrokClient,
+  GrokMessage,
+  GrokToolCall,
+} from '../grok/client';
+import { GROK_TOOLS } from '../grok/tools';
+import {
+  BashTool,
+  ConfirmationTool,
+  TextEditorTool,
+  TodoTool,
+} from '../tools';
+import { ToolResult } from '../types';
+import { loadCustomInstructions } from '../utils/custom-instructions';
+import {
+  createTokenCounter,
+  TokenCounter,
+} from '../utils/token-counter';
 
 export interface ChatEntry {
   type: "user" | "assistant" | "tool_result" | "tool_call";
@@ -38,12 +51,13 @@ export class GrokAgent extends EventEmitter {
 
   constructor(apiKey: string, baseURL?: string) {
     super();
-    this.grokClient = new GrokClient(apiKey, undefined, baseURL);
+    const model = process.env.MODEL || "x-ai/grok-4";
+    this.grokClient = new GrokClient(apiKey, model, baseURL);
     this.textEditor = new TextEditorTool();
     this.bash = new BashTool();
     this.todoTool = new TodoTool();
     this.confirmationTool = new ConfirmationTool();
-    this.tokenCounter = createTokenCounter("grok-4-latest");
+    this.tokenCounter = createTokenCounter(model);
 
     // Load custom instructions
     const customInstructions = loadCustomInstructions();

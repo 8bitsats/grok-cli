@@ -1,9 +1,16 @@
-import React, { useState } from "react";
-import { Box, Text, useInput, useApp } from "ink";
-import { GrokAgent } from "../../agent/grok-agent";
-import * as fs from "fs";
-import * as path from "path";
-import * as os from "os";
+import React, { useState } from 'react';
+
+import * as fs from 'fs';
+import {
+  Box,
+  Text,
+  useApp,
+  useInput,
+} from 'ink';
+import * as os from 'os';
+import * as path from 'path';
+
+import { GrokAgent } from '../../agent/grok-agent';
 
 interface ApiKeyInputProps {
   onApiKeySet: (agent: GrokAgent) => void;
@@ -58,7 +65,7 @@ export default function ApiKeyInput({ onApiKeySet }: ApiKeyInputProps) {
       const agent = new GrokAgent(apiKey);
       
       // Set environment variable for current process
-      process.env.GROK_API_KEY = apiKey;
+      process.env.OPENROUTER_API_KEY = apiKey;
       
       // Save to .grok/user-settings.json
       try {
@@ -106,9 +113,9 @@ export default function ApiKeyInput({ onApiKeySet }: ApiKeyInputProps) {
 
   return (
     <Box flexDirection="column" paddingX={2} paddingY={1}>
-      <Text color="yellow">🔑 Grok API Key Required</Text>
+      <Text color="yellow">🔑 OpenRouter API Key Required</Text>
       <Box marginBottom={1}>
-        <Text color="gray">Please enter your Grok API key to continue:</Text>
+        <Text color="gray">Please enter your OpenRouter API key to continue:</Text>
       </Box>
       
       <Box borderStyle="round" borderColor="blue" paddingX={1} marginBottom={1}>

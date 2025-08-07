@@ -1,14 +1,16 @@
 #!/usr/bin/env node
 
-import React from "react";
-import { render } from "ink";
-import { program } from "commander";
-import * as dotenv from "dotenv";
-import { GrokAgent } from "./agent/grok-agent";
-import ChatInterface from "./ui/components/chat-interface";
-import * as fs from "fs";
-import * as path from "path";
-import * as os from "os";
+import React from 'react';
+
+import { program } from 'commander';
+import * as dotenv from 'dotenv';
+import * as fs from 'fs';
+import { render } from 'ink';
+import * as os from 'os';
+import * as path from 'path';
+
+import { GrokAgent } from './agent/grok-agent';
+import ChatInterface from './ui/components/chat-interface';
 
 // Load environment variables
 dotenv.config();
@@ -16,7 +18,7 @@ dotenv.config();
 // Load API key from user settings if not in environment
 function loadApiKey(): string | undefined {
   // First check environment variables
-  let apiKey = process.env.GROK_API_KEY;
+  let apiKey = process.env.OPENROUTER_API_KEY;
   
   if (!apiKey) {
     // Try to load from user settings file
@@ -39,7 +41,7 @@ function loadApiKey(): string | undefined {
 // Load base URL from user settings if not in environment
 function loadBaseURL(): string | undefined {
   // First check environment variables
-  let baseURL = process.env.GROK_BASE_URL;
+  let baseURL = process.env.OPENROUTER_BASE_URL;
   
   if (!baseURL) {
     // Try to load from user settings file
@@ -66,8 +68,8 @@ program
   )
   .version("1.0.0")
   .option("-d, --directory <dir>", "set working directory", process.cwd())
-  .option("-k, --api-key <key>", "Grok API key (or set GROK_API_KEY env var)")
-  .option("-u, --base-url <url>", "Grok API base URL (or set GROK_BASE_URL env var)")
+  .option("-k, --api-key <key>", "OpenRouter API key (or set OPENROUTER_API_KEY env var)")
+  .option("-u, --base-url <url>", "OpenRouter API base URL (or set OPENROUTER_BASE_URL env var)")
   .action((options) => {
     if (options.directory) {
       try {
